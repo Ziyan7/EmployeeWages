@@ -1,15 +1,17 @@
 package EmployeeWages;
 
+
 public class EmployeeWage {
 	public static final int Is_full_time = 2;
 	public static final int Is_Part_time = 1;
 	public static final int Emp_Rate_Perhr = 20;
-	
+	public static final int No_days = 20;
 	
 	public static void main(String[] args) {
-		//variables
+		//Variables
 		int emphr = 0;
 		int empwage=0;
+		int monthlywage=0;
 		
 		int checkemp =(int) Math.floor(Math.random() * 10) % 3;
 		switch (checkemp) {
@@ -27,7 +29,8 @@ public class EmployeeWage {
 		
 		
 		empwage = emphr * Emp_Rate_Perhr;
-		System.out.println("Employee wage" +empwage);
+		monthlywage= empwage * No_days;
+		System.out.println("Employee wage per month " +monthlywage);
 
 
 	}
