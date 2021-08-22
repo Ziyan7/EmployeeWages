@@ -2,15 +2,21 @@ package EmployeeWages;
 
 public class EmployeeWage {
 	public static void main(String[] args) {
-		//Constant
-		int emp_time = 1;
-		//Obtaining random values
+		//Constants
+		int Is_full_time = 1;
+		int Emp_Rate_Perhr = 20;
+		//Variables
+		int emphr = 0;
+		int empwage=0;
+		
 		double checkemp = Math.floor(Math.random() * 10) % 2;
-		if (checkemp == emp_time) 
-			System.out.println("Employee is present");
+		if (checkemp == Is_full_time) 
+			emphr =8;
 		else 
-			System.out.println("Employee is absent");
-			
+			emphr=0; 
+		empwage = emphr * Emp_Rate_Perhr;
+		System.out.println("Employee wage" +empwage);
+		
 
 	}
 
