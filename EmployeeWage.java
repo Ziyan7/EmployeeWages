@@ -1,31 +1,37 @@
 package EmployeeWages;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class EmployeeWage implements ComputeWage{
 			public static final int IS_PART_TIME=1;
 			public static final int IS_FULL_TIME =2;
 			
-			private int numOfCompany=0;
-			private CompanyEmpWage[] companyEmpWageArray;
+			private LinkedList<CompanyEmpWage> companyEmpWageList;
+			private Map<String,CompanyEmpWage> companyToEmpWageMap;
 			
 			//Constructor 
 			public EmployeeWage()
 			{
-				companyEmpWageArray=new CompanyEmpWage[5];
+				companyEmpWageList =new LinkedList<>();
+				companyToEmpWageMap =new HashMap<>();
 				
 			}
 			
 			public void addCompanyEmpWage(String company,int EMP_RATE_PER_HOUR,int NUM_WORKING_DAYS,int MAX_HRS_IN_MONTH)
 			{
-				companyEmpWageArray[numOfCompany]=new CompanyEmpWage(company, EMP_RATE_PER_HOUR, NUM_WORKING_DAYS, MAX_HRS_IN_MONTH);
-				numOfCompany++;
+				CompanyEmpWage companyEmpWage =new CompanyEmpWage(company, EMP_RATE_PER_HOUR,NUM_WORKING_DAYS,MAX_HRS_IN_MONTH);
+				companyEmpWageList.add(companyEmpWage);
+				companyToEmpWageMap.put(company, companyEmpWage);
 			}
 			public void computeEmpWage()
 			{
-				for(int i=0;i<numOfCompany;i++)
+				for(int i=0;i<companyEmpWageList.size();i++)
 				{
-					companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
-					System.out.println(companyEmpWageArray[i]);
+					CompanyEmpWage companyEmpWage=companyEmpWageList.get(i);
+					companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
+					System.out.println(companyEmpWage);
 				}
 			}
 
@@ -33,9 +39,10 @@ public class EmployeeWage implements ComputeWage{
 			private int computeEmpWage(CompanyEmpWage companyEmpWage)
 			{	
 				//local variables
-						int Emp_Hrs=0;
+						int Employee_Hrs=0;
 						int TotalEmpHrs=0;
 						int TotalWorkingDays=0;
+						int dailywage=0;
 					//computation
 						while(TotalEmpHrs<=companyEmpWage.maxHoursInMonth && TotalWorkingDays<companyEmpWage.numOfWorkingHours)
 						{
@@ -43,14 +50,15 @@ public class EmployeeWage implements ComputeWage{
 							int empCheck=(int) (Math.floor(Math.random()*10)%3);
 							switch (empCheck) 
 							{
-								case  IS_FULL_TIME: Emp_Hrs=16;break;
-								case IS_PART_TIME: Emp_Hrs=8;break;
-								default: Emp_Hrs=0;
+								case  IS_FULL_TIME: Employee_Hrs=16;break;
+								case IS_PART_TIME: Employee_Hrs=8;break;
+								default: Employee_Hrs=0;
 							}
-							TotalEmpHrs+=Emp_Hrs;
+							TotalEmpHrs+=Employee_Hrs;
 							System.out.println("Day#: "+TotalWorkingDays+" Emp Hr: "+TotalEmpHrs);
+							dailywage=Employee_Hrs*companyEmpWage.empRatePerHour;
+							System.out.println("Daily wage is "+dailywage);
 						}
-							
 							return TotalEmpHrs*companyEmpWage.empRatePerHour;
 							
 			}
@@ -66,3 +74,4 @@ public class EmployeeWage implements ComputeWage{
 			}
 
 }
+
