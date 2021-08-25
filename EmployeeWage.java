@@ -1,5 +1,4 @@
 package EmployeeWages;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -33,6 +32,12 @@ public class EmployeeWage implements ComputeWage{
 					companyEmpWage.setTotalEmpWage(this.computeEmpWage(companyEmpWage));
 					System.out.println(companyEmpWage);
 				}
+			}
+			
+			@Override
+			public int getTotalWage(String company)
+			{
+				return companyToEmpWageMap.get(company).Total_Emp_Wage;
 			}
 
 			//method for calculating employee wages for different companies
@@ -71,7 +76,10 @@ public class EmployeeWage implements ComputeWage{
 				empWageBuilder.addCompanyEmpWage("YML",20,2,10);
 				empWageBuilder.addCompanyEmpWage("DMart",10,4,20);
 				empWageBuilder.computeEmpWage();
+				System.out.println("Total wage for YML Company: "+ empWageBuilder.getTotalWage("YML"));
+				
 			}
 
 }
+
 
